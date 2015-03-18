@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -19,6 +20,11 @@ namespace MinitabAutomation
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ExcelHelper excelHelper = new ExcelHelper(@"C:\Copy of Measdata ROR 101 1010-CB P1X - first tc -1 .xls");
+            DataTable dt = excelHelper.ExcelToDataTable("Raw data", true);
+            
+            return;
+
             try
             {
                 foreach (Process proc in Process.GetProcessesByName("Mtb"))
