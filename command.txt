@@ -1,0 +1,63 @@
+正态分布
+
+MTB > Capa C3 304;
+SUBC>   Lspec 1764;
+SUBC>   Uspec 1836;
+SUBC>   Pooled;
+SUBC>   AMR;
+SUBC>   UnBiased;
+SUBC>   OBiased;
+SUBC>   Toler 6;
+SUBC>   Within;
+SUBC>   Percent;
+SUBC>   Title "aaaaa";
+SUBC>   CStat.
+
+ Capa C3 304;   Lspec 1764;   Uspec 1836;   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title "aaaaa";   CStat.
+
+单值图
+
+MTB > Indplot ( C3 ) * C1;
+SUBC>   Individual.
+
+ Indplot ( C3 ) * C1;   Individual.
+
+散点图
+
+MTB > Plot C3*C2;
+SUBC>   Symbol.
+
+ Plot C3*C2;   Symbol.
+
+
+MTB > Plot C3*C2;
+SUBC>   Symbol C1;
+SUBC>   JITTER.
+
+ Plot C3*C2;   Symbol C1;   JITTER.
+
+
+概率图
+
+MTB > PPlot C3;
+SUBC>   Normal;
+SUBC>   Symbol;
+SUBC>   FitD;
+SUBC>     NoCI;
+SUBC>   Grid 2;
+SUBC>   Grid 1;
+SUBC>   MGrid 1.
+
+MTB > PPlot C3;
+SUBC>   Normal;
+SUBC>   Symbol;
+SUBC>   FitD;
+SUBC>     NoCI;
+SUBC>   Grid 2;
+SUBC>   Grid 1;
+SUBC>   MGrid 1;
+SUBC>   Title "dddddd".
+
+
+
+ PPlot C3;   Normal;   Symbol;   FitD;     NoCI;   Grid 2;   Grid 1;   MGrid 1;   Title "dddddd".
