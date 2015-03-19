@@ -200,7 +200,7 @@ namespace MinitabAutomation
             try
             {
                 modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf("."));
-                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                fs = new FileStream(fileName, FileMode.Open, FileAccess.ReadWrite);
                 if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                     workbook = new XSSFWorkbook(fs);
                 else if (fileName.IndexOf(".xls") > 0) // 2003版本
@@ -226,6 +226,9 @@ namespace MinitabAutomation
                     //获取实例的个数
                     IRow titleRow = sheet.GetRow(startRow);
                     int columnCount = titleRow.LastCellNum;
+                    //测试专用，用于减小列数
+                    //columnCount = columnCount > 14 ? 14 : columnCount;
+                    //获取数据行数
                     int rowCount = sheet.LastRowNum;
                     for (int i = startColumn; i < columnCount; i++)
                     {
@@ -360,13 +363,72 @@ namespace MinitabAutomation
                         }
                     }
                 }
+                fs.Close();
                 return modelRowData;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception: " + ex.Message);
+                fs.Close();
                 return null;
             }
+        }
+
+        public void insertPicture(string sheetName, Models.RowData modelRowData, System.Windows.Forms.TextBox textBox)
+        {
+            //删除空白的实例
+            for (int i = modelRowData.instances.Count - 1; i >= 0; i--)
+            {
+                bool isDelete = true;
+                Models.Instance model_Instance = (Models.Instance)modelRowData.instances[i];
+                for (int j = 0; j < model_Instance.pictures.Count; j++)
+                {
+                    if (model_Instance.pictures[j] != null)
+                    {
+                        isDelete = false;
+                    }
+                }
+                if (isDelete)
+                {
+                    modelRowData.instances.RemoveAt(i);
+                }
+            }
+            //delete sheet if exist
+            ISheet sheet = null;
+            sheet = workbook.GetSheet(sheetName);
+            if (sheet == null) //如果没有找到指定的sheetName对应的sheet，则尝试获取第一个sheet
+            {
+                sheet = workbook.CreateSheet(sheetName);
+            }
+
+            HSSFPatriarch patriarch = (HSSFPatriarch)sheet.CreateDrawingPatriarch();
+
+            for (int i = 0; i < modelRowData.instances.Count; i++)
+            {
+                Models.Instance model_Instance = (Models.Instance)modelRowData.instances[i];
+                for (int j = 0; j < model_Instance.pictures.Count; j++)
+                {
+                    if(model_Instance.pictures[j] != null)
+                    {
+                        string picturePath = model_Instance.pictures[j].ToString();
+                        //读取图片
+                        byte[] bytes = System.IO.File.ReadAllBytes(picturePath);
+                        int pictureIdx = workbook.AddPicture(bytes, PictureType.PNG);
+                        //add a picture
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, 4 + (j * 8), 2 + (i * 21), 14 + (j * 8), 10 + (i * 21));
+                        HSSFPicture pict = (HSSFPicture)patriarch.CreatePicture(anchor, pictureIdx);
+                        pict.Resize();
+                        textBox.AppendText("    " + picturePath.Substring(picturePath.LastIndexOf("\\")+1) + "\r\n");
+                    }
+                }
+            }
+
+            
+
+            fs = new FileStream(fileName, FileMode.Open, FileAccess.Write);
+            workbook.Write(fs);
+            fs.Close();
+            textBox.AppendText("插入图片完成\r\n");
         }
 
     }

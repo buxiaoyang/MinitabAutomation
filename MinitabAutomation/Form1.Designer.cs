@@ -164,9 +164,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 17);
+            this.label2.Size = new System.Drawing.Size(166, 17);
             this.label2.TabIndex = 0;
-            this.label2.Text = "2015年 版本1.0";
+            this.label2.Text = "2015年 版本1.0 用于演示";
             // 
             // panel8
             // 
@@ -197,7 +197,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Minitab自动化 V1.0";
+            this.Text = "Minitab自动化";
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);

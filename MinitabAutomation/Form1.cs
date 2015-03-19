@@ -20,7 +20,8 @@ namespace MinitabAutomation
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.textBoxOutPut.AppendText("正在读取Excel文件...");
+
+            this.textBoxOutPut.Text = "正在读取Excel文件...";
             ExcelHelper excelHelper = new ExcelHelper(this.textBoxFile.Text.Trim());
             Models.RowData rowData = excelHelper.getRowData("Raw data");
             if (rowData == null)
@@ -29,9 +30,12 @@ namespace MinitabAutomation
             }
             else
             {
-                this.textBoxOutPut.AppendText("成功\r\n");
+                this.textBoxOutPut.AppendText("成功\r\n");           
                 MinitabHelper minitab = new MinitabHelper();
                 minitab.GeneratePictures(rowData, this.textBoxOutPut);
+                this.textBoxOutPut.AppendText("正在插入图片到Excel...\r\n");
+                excelHelper.insertPicture("Graphs Minitab", rowData, this.textBoxOutPut);
+                MessageBox.Show("操作完成，请打开Excel文件查看\"Graphs Minitab\"工作表。");
             }
             
         }

@@ -37,7 +37,7 @@ namespace MinitabAutomation
             {
                 try
                 {
-                    textBox.AppendText("    " + modelInstance.title + "     ");
+                    textBox.AppendText("    " + modelInstance.title + "    ");
                     GeneratePicturesInstance(MtbApp, modelInstance, modelRowData);
                     textBox.AppendText("成功\r\n");
                 }
@@ -54,26 +54,56 @@ namespace MinitabAutomation
             MtbApp.Quit();
         }
 
+        private ArrayList column1 = new ArrayList();
+        private ArrayList column2 = new ArrayList();
+        private ArrayList column3 = new ArrayList();
+
+        public void parseColumn(Models.Instance modelInstance, Models.RowData modelRowData)
+        {
+            column1 = new ArrayList();
+            column2 = new ArrayList();
+            column3 = new ArrayList();
+            for (int i=0; i< modelInstance.data.Count; i++)
+            {
+                if (modelInstance.data[i].ToString().Trim() != "")
+                {
+                    try
+                    {
+                        Double data = Double.Parse(modelInstance.data[i].ToString().Trim());
+                        column1.Add(modelRowData.node[i]);
+                        column2.Add(modelRowData.dataTime[i]);
+                        column3.Add(data);
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+            }
+        }
+
         public void GeneratePicturesInstance(Mtb.Application MtbApp, Models.Instance modelInstance, Models.RowData modelRowData)
         {
             Mtb.Project MtbProj = MtbApp.ActiveProject;
 
+            parseColumn(modelInstance, modelRowData);
+
             Mtb.Columns MtbColumns = MtbProj.ActiveWorksheet.Columns;
             Mtb.Column MtbColumn1 = MtbColumns.Add(null, null, 1);
-            MtbColumn1.SetData(modelRowData.node.ToArray());
+            MtbColumn1.SetData(column1.ToArray());
 
             Mtb.Column MtbColumn2 = MtbColumns.Add(null, null, 1);
-            MtbColumn2.SetData(modelRowData.dataTime.ToArray());
+            MtbColumn2.SetData(column2.ToArray());
 
             Mtb.Column MtbColumn3 = MtbColumns.Add(null, null, 1);
-            MtbColumn3.SetData(converStringToDouble(modelInstance.data).ToArray());
+            MtbColumn3.SetData(column3.ToArray());
 
             try
             {
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Process Capability");
-                MtbProj.ExecuteCommand(" Capa C3 " + modelRowData.node.Count + ";   Lspec " + modelInstance.lowerLimit + ";   Uspec " + modelInstance.upLimit + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
+                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.lowerLimit + ";   Uspec " + modelInstance.upLimit + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
                 Mtb.Graph MtbGraph = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
-                MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 600, 400);
+                MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
             }
             catch
@@ -86,7 +116,7 @@ namespace MinitabAutomation
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Individual Polt");
                 MtbProj.ExecuteCommand("  Indplot ( C3 ) * C1;   Title \"" + getPictureTitle(1, modelInstance) + "\";   Individual.");
                 Mtb.Graph MtbGraph2 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
-                MtbGraph2.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 600, 400);
+                MtbGraph2.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
             }
             catch
@@ -98,7 +128,7 @@ namespace MinitabAutomation
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Scatter Plot");
                 MtbProj.ExecuteCommand("  Plot C3*C2;   Symbol C1;   Title \"" + getPictureTitle(2, modelInstance) + "\";   JITTER.");
                 Mtb.Graph MtbGraph3 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
-                MtbGraph3.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 600, 400);
+                MtbGraph3.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
             }
             catch
@@ -110,7 +140,7 @@ namespace MinitabAutomation
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Probability Plot");
                 MtbProj.ExecuteCommand(" PPlot C3;   Normal;   Symbol;   FitD;     NoCI;   Grid 2;   Grid 1;   MGrid 1;   Title \"" + getPictureTitle(3, modelInstance) + "\".");
                 Mtb.Graph MtbGraph4 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
-                MtbGraph4.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 600, 400);
+                MtbGraph4.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
             }
             catch
@@ -140,24 +170,9 @@ namespace MinitabAutomation
             {
                 title += "Probability Plot of " + modelInstance.title + "";
             }
-            return title.Replace("\"", "_");
+            return "用于演示 " + title.Replace("\"", "_");
         }
 
-        public ArrayList converStringToDouble(ArrayList list)
-        {
-            ArrayList listTo = new ArrayList();
-            foreach (string item in list)
-            {
-                try
-                {
-                    listTo.Add(Double.Parse(item));
-                }
-                catch
-                {
-                    listTo.Add(null);
-                }
-            }
-            return listTo;
-        }
+       
     }
 }
