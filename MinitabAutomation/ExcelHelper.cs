@@ -197,9 +197,9 @@ namespace MinitabAutomation
         {
             ISheet sheet = null;
             Models.RowData modelRowData = new Models.RowData();
-            modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf("."));
             try
             {
+                modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf("."));
                 fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                     workbook = new XSSFWorkbook(fs);
@@ -310,20 +310,32 @@ namespace MinitabAutomation
                         //Node
                         if (row.GetCell(3) != null)
                         {
-                            modelRowData.node.Add(row.GetCell(3).ToString());
+                            try
+                            {
+                                modelRowData.node.Add(float.Parse(row.GetCell(3).ToString()));
+                            }
+                            catch {
+                                modelRowData.node.Add(null);
+                            }
                         }
                         else {
-                            modelRowData.node.Add("");
+                            modelRowData.node.Add(null);
                         }
 
                         //Datetime
                         if (row.GetCell(8) != null)
                         {
-                            modelRowData.dataTime.Add(row.GetCell(8).ToString());
+                            try
+                            {
+                                modelRowData.dataTime.Add(DateTime.Parse(row.GetCell(8).ToString()));
+                            }
+                            catch {
+                                modelRowData.dataTime.Add(null);
+                            }
                         }
                         else
                         {
-                            modelRowData.dataTime.Add("");
+                            modelRowData.dataTime.Add(null);
                         }
 
                         //instances
@@ -331,11 +343,19 @@ namespace MinitabAutomation
                         {
                             if (row.GetCell(j) != null)
                             {
-                                ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add(row.GetCell(j).ToString());
+                                try
+                                {
+                                    ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add(row.GetCell(j).ToString());
+                                }
+                                catch
+                                {
+                                    ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add(null);
+                                }
+                                
                             }
                             else
                             {
-                                ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add("");
+                                ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add(null);
                             }
                         }
                     }

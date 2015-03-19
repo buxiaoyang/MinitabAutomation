@@ -20,12 +20,33 @@ namespace MinitabAutomation
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ExcelHelper excelHelper = new ExcelHelper(@"C:\Users\bux\Desktop\minitab\Measdata ROR 101 1010-CB P1X - first tc -  1.xls");
+            this.textBoxOutPut.AppendText("正在读取Excel文件...");
+            ExcelHelper excelHelper = new ExcelHelper(this.textBoxFile.Text.Trim());
             Models.RowData rowData = excelHelper.getRowData("Raw data");
+            if (rowData == null)
+            {
+                this.textBoxOutPut.AppendText("失败\r\n");
+            }
+            else
+            {
+                this.textBoxOutPut.AppendText("成功\r\n");
+                MinitabHelper minitab = new MinitabHelper();
+                minitab.GeneratePictures(rowData, this.textBoxOutPut);
+            }
+            
+        }
 
-            MinitabHelper.GeneratePictures(rowData);
-
-            return;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter =
+               "Excel file (*.xls)|*.xls";
+            dialog.InitialDirectory = this.textBoxFile.Text;
+            dialog.Title = "Select a project file";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                this.textBoxFile.Text = dialog.FileName;
+            }
         }
     }
 }
