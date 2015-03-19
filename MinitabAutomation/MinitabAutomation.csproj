@@ -71,6 +71,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MinitabHelper.cs" />
     <Compile Include="Models\Instance.cs" />
     <Compile Include="Models\RowData.cs" />
     <Compile Include="Program.cs" />

@@ -2,6 +2,7 @@
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -191,5 +192,162 @@ namespace MinitabAutomation
                 disposed = true;
             }
         }
+
+        public Models.RowData getRowData(string sheetName)
+        {
+            ISheet sheet = null;
+            Models.RowData modelRowData = new Models.RowData();
+            modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf("."));
+            try
+            {
+                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                if (fileName.IndexOf(".xlsx") > 0) // 2007版本
+                    workbook = new XSSFWorkbook(fs);
+                else if (fileName.IndexOf(".xls") > 0) // 2003版本
+                    workbook = new HSSFWorkbook(fs);
+
+                if (sheetName != null)
+                {
+                    sheet = workbook.GetSheet(sheetName);
+                    if (sheet == null) //如果没有找到指定的sheetName对应的sheet，则尝试获取第一个sheet
+                    {
+                        sheet = workbook.GetSheetAt(0);
+                    }
+                }
+                else
+                {
+                    sheet = workbook.GetSheetAt(0);
+                }
+                if (sheet != null)
+                {
+                    int startRow = 14;
+                    int startColumn = 9;
+
+                    //获取实例的个数
+                    IRow titleRow = sheet.GetRow(startRow);
+                    int columnCount = titleRow.LastCellNum;
+                    int rowCount = sheet.LastRowNum;
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        modelRowData.instances.Add(new Models.Instance());
+                        //添加title
+                        if (titleRow.GetCell(i) != null)
+                        {
+                            ((Models.Instance)modelRowData.instances[i - startColumn]).title = titleRow.GetCell(i).ToString();
+                        }
+                    }
+                    //更新实例信息
+
+                    //添加限制类型
+                    IRow limTypeRow = sheet.GetRow(7);
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        if (limTypeRow.GetCell(i) != null)
+                        {
+                            ((Models.Instance)modelRowData.instances[i - startColumn]).limType = limTypeRow.GetCell(i).ToString();
+                        }
+                    }
+
+                    //添加下限
+                    IRow lowerLimitRow = sheet.GetRow(8);
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        if (lowerLimitRow.GetCell(i) != null)
+                        {
+                            try
+                            {
+                                ((Models.Instance)modelRowData.instances[i - startColumn]).lowerLimit = Double.Parse(lowerLimitRow.GetCell(i).ToString());
+                            }
+                            catch (Exception exx)
+                            { 
+                            
+                            }
+                        }
+                    }
+
+                    //添加上限
+                    IRow upLimitRow = sheet.GetRow(9);
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        if (upLimitRow.GetCell(i) != null)
+                        {
+                            try
+                            {
+                            ((Models.Instance)modelRowData.instances[i - startColumn]).upLimit = Double.Parse(upLimitRow.GetCell(i).ToString());
+                            }
+                            catch (Exception exx)
+                            {
+
+                            }
+                        }
+                    }
+
+                    //添加名称
+                    IRow nameRow = sheet.GetRow(10);
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        if (nameRow.GetCell(i) != null)
+                        {
+                            ((Models.Instance)modelRowData.instances[i - startColumn]).name = nameRow.GetCell(i).ToString();
+                        }
+                    }
+
+                    //添加单位
+                    IRow unitRow = sheet.GetRow(11);
+                    for (int i = startColumn; i < columnCount; i++)
+                    {
+                        if (unitRow.GetCell(i) != null)
+                        {
+                            ((Models.Instance)modelRowData.instances[i - startColumn]).unit = unitRow.GetCell(i).ToString();
+                        }
+                    }
+
+                    //更新实例数据信息
+                    for (int i = startRow+1; i <= rowCount; ++i)
+                    {
+                        IRow row = sheet.GetRow(i);
+                        if (row == null) continue; //没有数据的行默认是null　　　　　　　
+                        //Node
+                        if (row.GetCell(3) != null)
+                        {
+                            modelRowData.node.Add(row.GetCell(3).ToString());
+                        }
+                        else {
+                            modelRowData.node.Add("");
+                        }
+
+                        //Datetime
+                        if (row.GetCell(8) != null)
+                        {
+                            modelRowData.dataTime.Add(row.GetCell(8).ToString());
+                        }
+                        else
+                        {
+                            modelRowData.dataTime.Add("");
+                        }
+
+                        //instances
+                        for (int j = startColumn; j < columnCount; j++)
+                        {
+                            if (row.GetCell(j) != null)
+                            {
+                                ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add(row.GetCell(j).ToString());
+                            }
+                            else
+                            {
+                                ((Models.Instance)modelRowData.instances[j - startColumn]).data.Add("");
+                            }
+                        }
+                    }
+                }
+                return modelRowData;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+                return null;
+            }
+        }
+
     }
 }

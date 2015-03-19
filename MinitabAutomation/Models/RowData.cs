@@ -6,13 +6,19 @@ using System.Text;
 
 namespace MinitabAutomation.Models
 {
-    class RowData
+    public class RowData
     {
         public string filePath { get; set; }
         public int rowCount { get; set; }
-        public int[]  node { get; set; }
-        public DateTime[] dataTime { get; set; }
+        public ArrayList node { get; set; }
+        public ArrayList dataTime { get; set; }
         public ArrayList instances { get; set; }
 
+        public RowData()
+        {
+            node = new ArrayList();
+            dataTime = new ArrayList();
+            instances = new ArrayList();
+        }
     }
 }
