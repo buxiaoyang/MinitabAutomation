@@ -33,9 +33,12 @@ namespace MinitabAutomation
                 this.textBoxOutPut.AppendText("成功\r\n");           
                 MinitabHelper minitab = new MinitabHelper();
                 minitab.GeneratePictures(rowData, this.textBoxOutPut);
+
+                
                 this.textBoxOutPut.AppendText("正在插入图片到Excel...\r\n");
                 excelHelper.insertPicture("Graphs Minitab", rowData, this.textBoxOutPut);
                 MessageBox.Show("操作完成，请打开Excel文件查看\"Graphs Minitab\"工作表。");
+             
             }
             
         }

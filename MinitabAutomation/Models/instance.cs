@@ -11,6 +11,10 @@ namespace MinitabAutomation.Models
         public string limType { get; set; }
         public Double upLimit { get; set; }
         public Double lowerLimit { get; set; }
+        public Double STDVE { get; set; }
+        public Double Mean { get; set; }
+        public Double LCL { get; set; }
+        public Double UCL { get; set; }
         public string name { get; set; }
         public string unit { get; set; }
         public string title { get; set; }
@@ -24,6 +28,10 @@ namespace MinitabAutomation.Models
             limType = "";
             upLimit = Double.NaN;
             lowerLimit = Double.NaN;
+            STDVE = Double.NaN;
+            Mean = Double.NaN;
+            LCL = Double.NaN;
+            UCL = Double.NaN;
             name = "";
             unit = "";
             title = "";

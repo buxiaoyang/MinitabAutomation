@@ -87,6 +87,8 @@ namespace MinitabAutomation
             Mtb.Project MtbProj = MtbApp.ActiveProject;
 
             parseColumn(modelInstance, modelRowData);
+            //计算标准差
+            CalculateSTDVE(column3, modelInstance);
 
             Mtb.Columns MtbColumns = MtbProj.ActiveWorksheet.Columns;
             Mtb.Column MtbColumn1 = MtbColumns.Add(null, null, 1);
@@ -97,11 +99,11 @@ namespace MinitabAutomation
 
             Mtb.Column MtbColumn3 = MtbColumns.Add(null, null, 1);
             MtbColumn3.SetData(column3.ToArray());
-
+            
             try
             {
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Process Capability");
-                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.lowerLimit + ";   Uspec " + modelInstance.upLimit + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
+                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.LCL + ";   Uspec " + modelInstance.UCL + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
                 Mtb.Graph MtbGraph = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
@@ -173,6 +175,46 @@ namespace MinitabAutomation
             return "用于演示 " + title.Replace("\"", "_");
         }
 
+
+        public void CalculateSTDVE(ArrayList data ,Models.Instance modelInstance)
+        {
+            Double sumForMean = 0.00, bigSum = 0.00, mean = 0.00;
+            Double stdDev = 0.00;
+            // Calculate the total for the mean
+            for (int i = 0; i < data.Count; i++)
+            { 
+                sumForMean += (Double)data[i];
+            }
+            // Calculate the mean
+            mean = sumForMean / data.Count;
+
+            // Calculate the total for the standard deviation
+            for (int i = 0; i < data.Count; i++)
+            { 
+                bigSum += Math.Pow((Double)data[i] - mean, 2);
+            }
+
+            // Now we can calculate the standard deviation
+            stdDev = Math.Sqrt(bigSum / (data.Count - 1));
+
+            modelInstance.Mean = mean;
+            modelInstance.STDVE = stdDev;
+
+            modelInstance.LCL = mean - 6 * stdDev;
+            modelInstance.UCL = mean + 6 * stdDev;
+
+            try
+            {
+                modelInstance.LCL = modelInstance.LCL > modelInstance.lowerLimit ? modelInstance.LCL : modelInstance.lowerLimit;
+            }
+            catch { }
+            try
+            {
+                modelInstance.UCL = modelInstance.UCL < modelInstance.upLimit ? modelInstance.UCL : modelInstance.upLimit;
+            }
+            catch { }
+
+        }
        
     }
 }
