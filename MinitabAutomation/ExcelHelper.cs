@@ -199,7 +199,7 @@ namespace MinitabAutomation
             Models.RowData modelRowData = new Models.RowData();
             try
             {
-                modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf("."));
+                modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf(".")) + "images";
                 fs = new FileStream(fileName, FileMode.Open, FileAccess.ReadWrite);
                 if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                     workbook = new XSSFWorkbook(fs);

@@ -172,7 +172,8 @@ namespace MinitabAutomation
             {
                 title += "Probability Plot of " + modelInstance.title + "";
             }
-            return "用于演示 " + title.Replace("\"", "_");
+            //return "用于演示 " + title.Replace("\"", "_");
+            return title.Replace("\"", "_");
         }
 
 
