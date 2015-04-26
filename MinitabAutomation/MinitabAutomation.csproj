@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Mtb">
-      <Guid>{0681D994-F2E6-4FC0-B441-6C1E9E328F57}</Guid>
+      <Guid>{065BB861-A35C-4055-B49D-DB34B10D6E36}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

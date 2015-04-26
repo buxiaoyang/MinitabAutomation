@@ -58,8 +58,9 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(575, 51);
+            this.panel1.Size = new System.Drawing.Size(431, 38);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -69,42 +70,47 @@
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(478, 51);
+            this.panel3.Size = new System.Drawing.Size(358, 38);
             this.panel3.TabIndex = 1;
             // 
             // panel6
             // 
             this.panel6.Controls.Add(this.textBoxFile);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(67, 0);
+            this.panel6.Location = new System.Drawing.Point(50, 0);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel6.Name = "panel6";
-            this.panel6.Padding = new System.Windows.Forms.Padding(0, 17, 0, 0);
-            this.panel6.Size = new System.Drawing.Size(336, 51);
+            this.panel6.Padding = new System.Windows.Forms.Padding(0, 13, 0, 0);
+            this.panel6.Size = new System.Drawing.Size(252, 38);
             this.panel6.TabIndex = 2;
             // 
             // textBoxFile
             // 
             this.textBoxFile.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxFile.Location = new System.Drawing.Point(0, 17);
+            this.textBoxFile.Location = new System.Drawing.Point(0, 13);
+            this.textBoxFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(336, 22);
+            this.textBoxFile.Size = new System.Drawing.Size(252, 21);
             this.textBoxFile.TabIndex = 0;
             // 
             // panel5
             // 
             this.panel5.Controls.Add(this.button1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel5.Location = new System.Drawing.Point(403, 0);
+            this.panel5.Location = new System.Drawing.Point(302, 0);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(75, 51);
+            this.panel5.Size = new System.Drawing.Size(56, 38);
             this.panel5.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 12);
+            this.button1.Location = new System.Drawing.Point(2, 9);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(62, 29);
+            this.button1.Size = new System.Drawing.Size(46, 22);
             this.button1.TabIndex = 0;
             this.button1.Text = "选择";
             this.button1.UseVisualStyleBackColor = true;
@@ -115,16 +121,18 @@
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(67, 51);
+            this.panel4.Size = new System.Drawing.Size(50, 38);
             this.panel4.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Location = new System.Drawing.Point(9, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "文件：";
             // 
@@ -132,19 +140,21 @@
             // 
             this.panel2.Controls.Add(this.button2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(478, 0);
+            this.panel2.Location = new System.Drawing.Point(358, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.panel2.Size = new System.Drawing.Size(97, 51);
+            this.panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Size = new System.Drawing.Size(73, 38);
             this.panel2.TabIndex = 0;
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(5, 5);
+            this.button2.Location = new System.Drawing.Point(4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 41);
+            this.button2.Size = new System.Drawing.Size(65, 30);
             this.button2.TabIndex = 0;
             this.button2.Text = "开始处理";
             this.button2.UseVisualStyleBackColor = false;
@@ -154,17 +164,19 @@
             // 
             this.panel7.Controls.Add(this.label2);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(0, 390);
+            this.panel7.Location = new System.Drawing.Point(0, 292);
+            this.panel7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(575, 29);
+            this.panel7.Size = new System.Drawing.Size(431, 22);
             this.panel7.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 6);
+            this.label2.Location = new System.Drawing.Point(9, 4);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 17);
+            this.label2.Size = new System.Drawing.Size(143, 12);
             this.label2.TabIndex = 0;
             this.label2.Text = "2015年 版本1.0 用于演示";
             // 
@@ -172,29 +184,32 @@
             // 
             this.panel8.Controls.Add(this.textBoxOutPut);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(0, 51);
+            this.panel8.Location = new System.Drawing.Point(0, 38);
+            this.panel8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(575, 339);
+            this.panel8.Size = new System.Drawing.Size(431, 254);
             this.panel8.TabIndex = 2;
             // 
             // textBoxOutPut
             // 
             this.textBoxOutPut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxOutPut.Location = new System.Drawing.Point(0, 0);
+            this.textBoxOutPut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxOutPut.Multiline = true;
             this.textBoxOutPut.Name = "textBoxOutPut";
             this.textBoxOutPut.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxOutPut.Size = new System.Drawing.Size(575, 339);
+            this.textBoxOutPut.Size = new System.Drawing.Size(431, 254);
             this.textBoxOutPut.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 419);
+            this.ClientSize = new System.Drawing.Size(431, 314);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Minitab自动化";

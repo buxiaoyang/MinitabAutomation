@@ -34,3 +34,16 @@ C:\Users\bux\Projects Dev\GitHubSVN\MinitabAutomation\trunk\MinitabAutomation\ob
 C:\Users\bux\Projects Dev\GitHubSVN\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.Form1.resources
 C:\Users\bux\Projects Dev\GitHubSVN\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.Properties.Resources.resources
 C:\Users\bux\Projects Dev\GitHubSVN\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.csproj.GenerateResource.Cache
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.csproj.ResolveComReference.cache
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.exe
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.pdb
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.csprojResolveAssemblyReference.cache
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.Form1.resources
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.Properties.Resources.resources
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\MinitabAutomation.csproj.GenerateResource.Cache
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\bin\Debug\MinitabAutomation.exe
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\bin\Debug\MinitabAutomation.pdb
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\bin\Debug\NPOI.xml
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\bin\Debug\NPOI.OOXML.xml
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\bin\Debug\NPOI.OpenXml4Net.xml
+C:\Users\晓旸\Desktop\GitHub\MinitabAutomation\trunk\MinitabAutomation\obj\Debug\Interop.Mtb.dll
