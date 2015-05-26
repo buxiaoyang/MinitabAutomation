@@ -415,7 +415,7 @@ namespace MinitabAutomation
                         byte[] bytes = System.IO.File.ReadAllBytes(picturePath);
                         int pictureIdx = workbook.AddPicture(bytes, PictureType.PNG);
                         //add a picture
-                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, 4 + (j * 8), 2 + (i * 21), 14 + (j * 8), 10 + (i * 21));
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, 4 + (j * 12), 2 + (i * 32), 14 + (j * 12), 10 + (i * 32));
                         HSSFPicture pict = (HSSFPicture)patriarch.CreatePicture(anchor, pictureIdx);
                         pict.Resize();
                         textBox.AppendText("    " + picturePath.Substring(picturePath.LastIndexOf("\\")+1) + "\r\n");
