@@ -103,7 +103,7 @@ namespace MinitabAutomation
             try
             {
                 string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Process Capability");
-                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.LCL + ";   Uspec " + modelInstance.UCL + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
+                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.LCL.ToString("f3") + ";   Uspec " + modelInstance.UCL.ToString("f3") + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
                 Mtb.Graph MtbGraph = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 512, 354);
                 modelInstance.pictures.Add(imgPath + ".png");
@@ -158,7 +158,7 @@ namespace MinitabAutomation
             string title = "";
             if (Type == 0)
             {
-                title += modelInstance.name + " : " + modelInstance.title + " : L=" + modelInstance.lowerLimit + " H=" + modelInstance.upLimit + " (" + modelInstance.unit + ")";
+                title += modelInstance.name + " : " + modelInstance.title + " : L=" + modelInstance.LCL.ToString("f3") + " H=" + modelInstance.UCL.ToString("f3") + " (" + modelInstance.unit + ")";
             }
             else if (Type == 1)
             {
