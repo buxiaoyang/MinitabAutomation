@@ -428,7 +428,7 @@ namespace MinitabAutomation
             fs = new FileStream(fileName, FileMode.Open, FileAccess.Write);
             workbook.Write(fs);
             fs.Close();
-            textBox.AppendText("插入图片完成\r\n");
+            textBox.AppendText("Insert pictures succeed\r\n");
         }
 
     }

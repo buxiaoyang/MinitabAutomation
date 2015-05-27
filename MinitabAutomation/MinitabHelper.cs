@@ -27,30 +27,30 @@ namespace MinitabAutomation
             Mtb.Application MtbApp = new Mtb.Application();
             MtbApp.UserInterface.Visible = true;
             //创建图片文件夹
-            textBox.AppendText("新建图片文件夹：" + modelRowData.filePath + "\r\n");
+            textBox.AppendText("Creating picture folder:" + modelRowData.filePath + "\r\n");
             if (!Directory.Exists(modelRowData.filePath))//判断文件夹是否已经存在
             {
                 Directory.CreateDirectory(modelRowData.filePath);//创建文件夹
             }
-            textBox.AppendText("正在生成图片...\r\n");
+            textBox.AppendText("Generating pictures...\r\n");
             foreach (Models.Instance modelInstance in modelRowData.instances)
             {
                 try
                 {
                     textBox.AppendText("    " + modelInstance.title + "    ");
                     GeneratePicturesInstance(MtbApp, modelInstance, modelRowData);
-                    textBox.AppendText("成功\r\n");
+                    textBox.AppendText("Succeed\r\n");
                 }
                 catch
                 {
                     Mtb.Project MtbProj = MtbApp.ActiveProject;
                     MtbProj.Delete();
                     MtbApp.New();
-                    textBox.AppendText("失败\r\n");
+                    textBox.AppendText("Failed\r\n");
                 }
 
             }
-            textBox.AppendText("图片生成完成\r\n");
+            textBox.AppendText("Generate pictures succeed\r\n");
             MtbApp.Quit();
         }
 
