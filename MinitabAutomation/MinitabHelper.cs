@@ -102,7 +102,7 @@ namespace MinitabAutomation
             
             try
             {
-                string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Process Capability");
+                string imgPath = Path.Combine(modelRowData.filePath, parseFileName(modelInstance.title) + " Process Capability");
                 MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.LCL.ToString("f3") + ";   Uspec " + modelInstance.UCL.ToString("f3") + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
                 Mtb.Graph MtbGraph = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 768, 531);
@@ -115,7 +115,7 @@ namespace MinitabAutomation
 
             try
             {
-                string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Individual Polt");
+                string imgPath = Path.Combine(modelRowData.filePath, parseFileName(modelInstance.title) + " Individual Polt");
                 MtbProj.ExecuteCommand("  Indplot ( C3 ) * C1;   Title \"" + getPictureTitle(1, modelInstance) + "\";   Individual.");
                 Mtb.Graph MtbGraph2 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph2.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 768, 531);
@@ -127,7 +127,7 @@ namespace MinitabAutomation
             }
             try
             {
-                string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Scatter Plot");
+                string imgPath = Path.Combine(modelRowData.filePath, parseFileName(modelInstance.title) + " Scatter Plot");
                 MtbProj.ExecuteCommand("  Plot C3*C2;   Symbol C1;   Title \"" + getPictureTitle(2, modelInstance) + "\";   JITTER.");
                 Mtb.Graph MtbGraph3 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph3.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 768, 531);
@@ -139,7 +139,7 @@ namespace MinitabAutomation
             }
             try
             {
-                string imgPath = Path.Combine(modelRowData.filePath, modelInstance.title + " Probability Plot");
+                string imgPath = Path.Combine(modelRowData.filePath, parseFileName(modelInstance.title) + " Probability Plot");
                 MtbProj.ExecuteCommand(" PPlot C3;   Normal;   Symbol;   FitD;     NoCI;   Grid 2;   Grid 1;   MGrid 1;   Title \"" + getPictureTitle(3, modelInstance) + "\".");
                 Mtb.Graph MtbGraph4 = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph4.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 768, 531);
@@ -158,7 +158,7 @@ namespace MinitabAutomation
             string title = "";
             if (Type == 0)
             {
-                title += modelInstance.name + " : " + modelInstance.title + " : L=" + modelInstance.LCL.ToString("f3") + " H=" + modelInstance.UCL.ToString("f3") + " (" + modelInstance.unit + ")";
+                title += modelInstance.name + " : L=" + modelInstance.LCL.ToString("f3") + " H=" + modelInstance.UCL.ToString("f3");
             }
             else if (Type == 1)
             {
@@ -215,6 +215,17 @@ namespace MinitabAutomation
             }
             catch { }
 
+        }
+
+        public string parseFileName(string input)
+        {
+            string output = input;
+            char[] invalidPathChars = Path.GetInvalidPathChars();
+            for (int i = 0; i < invalidPathChars.Length; i++)
+            {
+                output = output.Replace(invalidPathChars[i], '_');
+            }
+            return output;
         }
        
     }

@@ -199,7 +199,7 @@ namespace MinitabAutomation
             Models.RowData modelRowData = new Models.RowData();
             try
             {
-                modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf(".")) + "images";
+                modelRowData.filePath = fileName.Substring(0, fileName.LastIndexOf(".")) + " images";
                 fs = new FileStream(fileName, FileMode.Open, FileAccess.ReadWrite);
                 if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                     workbook = new XSSFWorkbook(fs);
@@ -220,11 +220,11 @@ namespace MinitabAutomation
                 }
                 if (sheet != null)
                 {
-                    int startRow = 14;
-                    int startColumn = 9;
+                    int startRow = 5;
+                    int startColumn = 7;
 
                     //获取实例的个数
-                    IRow titleRow = sheet.GetRow(startRow);
+                    IRow titleRow = sheet.GetRow(1);
                     int columnCount = titleRow.LastCellNum;
                     //测试专用，用于减小列数
                     //columnCount = columnCount > 14 ? 14 : columnCount;
@@ -242,7 +242,7 @@ namespace MinitabAutomation
                     //更新实例信息
 
                     //添加限制类型
-                    IRow limTypeRow = sheet.GetRow(7);
+                    IRow limTypeRow = sheet.GetRow(2);
                     for (int i = startColumn; i < columnCount; i++)
                     {
                         if (limTypeRow.GetCell(i) != null)
@@ -252,7 +252,7 @@ namespace MinitabAutomation
                     }
 
                     //添加下限
-                    IRow lowerLimitRow = sheet.GetRow(8);
+                    IRow lowerLimitRow = sheet.GetRow(3);
                     for (int i = startColumn; i < columnCount; i++)
                     {
                         if (lowerLimitRow.GetCell(i) != null)
@@ -269,7 +269,7 @@ namespace MinitabAutomation
                     }
 
                     //添加上限
-                    IRow upLimitRow = sheet.GetRow(9);
+                    IRow upLimitRow = sheet.GetRow(4);
                     for (int i = startColumn; i < columnCount; i++)
                     {
                         if (upLimitRow.GetCell(i) != null)
@@ -286,7 +286,7 @@ namespace MinitabAutomation
                     }
 
                     //添加名称
-                    IRow nameRow = sheet.GetRow(10);
+                    IRow nameRow = sheet.GetRow(5);
                     for (int i = startColumn; i < columnCount; i++)
                     {
                         if (nameRow.GetCell(i) != null)
@@ -296,7 +296,7 @@ namespace MinitabAutomation
                     }
 
                     //添加单位
-                    IRow unitRow = sheet.GetRow(11);
+                    IRow unitRow = sheet.GetRow(5);
                     for (int i = startColumn; i < columnCount; i++)
                     {
                         if (unitRow.GetCell(i) != null)
@@ -311,11 +311,11 @@ namespace MinitabAutomation
                         IRow row = sheet.GetRow(i);
                         if (row == null) continue; //没有数据的行默认是null　　　　　　　
                         //Node
-                        if (row.GetCell(3) != null)
+                        if (row.GetCell(4) != null)
                         {
                             try
                             {
-                                modelRowData.node.Add(float.Parse(row.GetCell(3).ToString()));
+                                modelRowData.node.Add(float.Parse(row.GetCell(4).ToString()));
                             }
                             catch {
                                 modelRowData.node.Add(null);
@@ -326,11 +326,11 @@ namespace MinitabAutomation
                         }
 
                         //Datetime
-                        if (row.GetCell(8) != null)
+                        if (row.GetCell(3) != null)
                         {
                             try
                             {
-                                modelRowData.dataTime.Add(DateTime.Parse(row.GetCell(8).ToString()));
+                                modelRowData.dataTime.Add(row.GetCell(3).DateCellValue);
                             }
                             catch {
                                 modelRowData.dataTime.Add(null);

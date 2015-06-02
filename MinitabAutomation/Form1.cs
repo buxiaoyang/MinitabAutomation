@@ -23,7 +23,7 @@ namespace MinitabAutomation
 
             this.textBoxOutPut.Text = "Reading Excel File...";
             ExcelHelper excelHelper = new ExcelHelper(this.textBoxFile.Text.Trim());
-            Models.RowData rowData = excelHelper.getRowData("Raw data");
+            Models.RowData rowData = excelHelper.getRowData("Raw data-Flex");
             if (rowData == null)
             {
                 this.textBoxOutPut.AppendText("Failed\r\n");
