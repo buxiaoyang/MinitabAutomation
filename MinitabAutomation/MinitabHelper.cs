@@ -65,18 +65,21 @@ namespace MinitabAutomation
             column3 = new ArrayList();
             for (int i=0; i< modelInstance.data.Count; i++)
             {
-                if (modelInstance.data[i].ToString().Trim() != "")
-                {
-                    try
+                if (modelInstance.data[i] != null)
+                { 
+                    if (modelInstance.data[i].ToString().Trim() != "")
                     {
-                        Double data = Double.Parse(modelInstance.data[i].ToString().Trim());
-                        column1.Add(modelRowData.node[i]);
-                        column2.Add(modelRowData.dataTime[i]);
-                        column3.Add(data);
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            Double data = Double.Parse(modelInstance.data[i].ToString().Trim());
+                            column1.Add(modelRowData.node[i]);
+                            column2.Add(modelRowData.dataTime[i]);
+                            column3.Add(data);
+                        }
+                        catch
+                        {
                         
+                        }
                     }
                 }
             }

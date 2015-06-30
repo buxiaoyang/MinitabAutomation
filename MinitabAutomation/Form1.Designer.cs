@@ -166,7 +166,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(135, 15);
             this.label2.TabIndex = 0;
-            this.label2.Text = "2015 Version 1.1";
+            this.label2.Text = "2015 Version 1.2";
             // 
             // panel8
             // 
