@@ -106,7 +106,9 @@ namespace MinitabAutomation
             try
             {
                 string imgPath = Path.Combine(modelRowData.filePath, parseFileName(modelInstance.title) + " Process Capability");
-                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";   Lspec " + modelInstance.LCL.ToString("f3") + ";   Uspec " + modelInstance.UCL.ToString("f3") + ";   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
+                string lspec = Double.IsNaN(modelInstance.LCL) ? "" : "Lspec " + modelInstance.LCL.ToString("f3") + ";";
+                string uspec = Double.IsNaN(modelInstance.UCL) ? "" : "Uspec " + modelInstance.UCL.ToString("f3") + ";";
+                MtbProj.ExecuteCommand(" Capa C3 " + column1.Count + ";  " + lspec + uspec + "   Pooled;   AMR;   UnBiased;   OBiased;   Toler 6;   Within;   Percent;   Title \"" + getPictureTitle(0, modelInstance) + "\";   CStat.");
                 Mtb.Graph MtbGraph = MtbProj.Commands.Item(MtbProj.Commands.Count).Outputs.Item(1).Graph;
                 MtbGraph.SaveAs(imgPath, true, Mtb.MtbGraphFileTypes.GFPNGHighColor, 768, 531);
                 modelInstance.pictures.Add(imgPath + ".png");
